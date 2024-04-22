@@ -36,8 +36,8 @@ def win(board,ch):
     return False
 
 def play():
-    player1 = input("\nEnter your character : ")
-    player2 = input("Enter your character 2: ")
+    player1 = 'x'
+    player2 = 'o'
     playboard = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
     winflag = None
 
