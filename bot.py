@@ -23,7 +23,7 @@ def display(board):
 def available(board,num):
     if num>9:
         return False
-    return False if num==0 else playboard[num]==' '
+    return False if num==0 else board[num]==' '
 
 def win(board,ch):
 
@@ -36,10 +36,13 @@ def win(board,ch):
     return False
 
 def play():
-    player1 = input("Enter your character : ")
+    player1 = input("\nEnter your character : ")
     player2 = input("Enter your character 2: ")
     playboard = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    winflag = None
+
     while ' ' in playboard[1:]:
+
         # clear output screen
         system('cls') if name == 'nt' else system('clear')
 
@@ -53,17 +56,28 @@ def play():
         b = 0
 
         # place moves
-        while (a not in range(1,10)) and (not available(playboard, a)):
+        while (a not in range(1,10)) or (not available(playboard, a)):
             a = int(input("Player 1 : "))
         playboard[a]=player1
+
+        system('cls') if name == 'nt' else system('clear')
+        title()
+        display(playboard)
+
+        if ' ' not in playboard[1:]:
+            continue
 
         if win(playboard, player1):
             winflag = "player1"
             break
 
-        while (b not in range(1,10)) and (not available(playboard, b)):
+        while (b not in range(1,10)) or (not available(playboard, b)):
             b = int(input("Player 2 : "))
         playboard[b]=player2
+
+        system('cls') if name == 'nt' else system('clear')
+        title()
+        display(playboard)
 
         if win(playboard, player2):
             winflag = "player2"
@@ -73,7 +87,10 @@ def play():
     title()
     display(playboard)
 
-    print(f"Player {1 if winflag=='player1' else 2} wins the game !!! \n\n")
+    if winflag == None:
+        print("That was a Draw !\n")
+    else:
+        print(f"Player {1 if winflag=='player1' else 2} wins the game !!!\n")
 
 playmore = 'y'
 while playmore=='y':
@@ -81,3 +98,5 @@ while playmore=='y':
     play()
 
     playmore = input("Do you want to play more? ")
+
+print('\n')
