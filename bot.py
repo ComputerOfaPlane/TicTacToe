@@ -1,9 +1,6 @@
 from random import randint
 from os import system, name
 
-playboard = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
-player1 = {'char':None}
-
 def title():
     print("___________.__               ___________                     ___________            ")
     print("\__    ___/|__| ____         \__    ___/____    ____         \__    ___/___   ____  ")
@@ -21,9 +18,12 @@ def display(board):
     print('   |   |')
     print('---+---+---')
     print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
-    print('   |   |')
+    print('   |   |\n')
 
-
+def available(board,num):
+    if num>9:
+        return False
+    return False if num==0 else playboard[num]==' '
 
 def win(board,ch):
 
@@ -35,31 +35,49 @@ def win(board,ch):
         return True
     return False
 
-test_WIN =   [[' ','X','X','X',' ',' ',' ',' ',' ',' '],
-              [' ',' ',' ',' ','X','X','X',' ',' ',' '],
-              [' ',' ',' ',' ',' ',' ',' ','X','X','X'],
-              [' ','X',' ',' ','X',' ',' ','X',' ',' '],
-              [' ',' ','X',' ',' ','X',' ',' ','X',' '],
-              [' ',' ',' ','X',' ',' ','X',' ',' ','X'],
-              [' ','X',' ',' ',' ','X',' ',' ',' ','X'],
-              [' ',' ',' ','X',' ','X',' ','X',' ',' ']]
-test_lose = [' ',' ','X',' ','X',' ','X',' ','X',' ']
-test_board = [' ','X','O','X','O','X','O','X','O','X']
-
-
-
 def play():
+    player1 = input("Enter your character : ")
+    player2 = input("Enter your character 2: ")
+    playboard = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    while ' ' in playboard[1:]:
+        # clear output screen
+        system('cls') if name == 'nt' else system('clear')
 
-    # clear output screen
+        # prints title
+        title()
+
+        # displays the board
+        display(playboard)
+
+        a = 0
+        b = 0
+
+        # place moves
+        while (a not in range(1,10)) and (not available(playboard, a)):
+            a = int(input("Player 1 : "))
+        playboard[a]=player1
+
+        if win(playboard, player1):
+            winflag = "player1"
+            break
+
+        while (b not in range(1,10)) and (not available(playboard, b)):
+            b = int(input("Player 2 : "))
+        playboard[b]=player2
+
+        if win(playboard, player2):
+            winflag = "player2"
+            break
+    
     system('cls') if name == 'nt' else system('clear')
-
-    # prints title
     title()
+    display(playboard)
 
-    # displays the board
-    display(test_board)
+    print(f"Player {1 if winflag=='player1' else 2} wins the game !!! \n\n")
 
-    # player
+playmore = 'y'
+while playmore=='y':
+    
+    play()
 
-
-play()
+    playmore = input("Do you want to play more? ")
