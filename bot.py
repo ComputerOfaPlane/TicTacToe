@@ -35,6 +35,11 @@ def win(board,ch):
         return True
     return False
 
+def format(board):
+    system('cls') if name == 'nt' else system('clear')
+    title()
+    display(board)
+
 def play():
     player1 = 'x'
     player2 = 'o'
@@ -43,14 +48,7 @@ def play():
 
     while ' ' in playboard[1:]:
 
-        # clear output screen
-        system('cls') if name == 'nt' else system('clear')
-
-        # prints title
-        title()
-
-        # displays the board
-        display(playboard)
+        format(playboard)
 
         a = 0
         b = 0
@@ -60,9 +58,7 @@ def play():
             a = int(input("Player 1 : "))
         playboard[a]=player1
 
-        system('cls') if name == 'nt' else system('clear')
-        title()
-        display(playboard)
+        format(playboard)
 
         if ' ' not in playboard[1:]:
             continue
@@ -75,17 +71,13 @@ def play():
             b = int(input("Player 2 : "))
         playboard[b]=player2
 
-        system('cls') if name == 'nt' else system('clear')
-        title()
-        display(playboard)
+        format(playboard)
 
         if win(playboard, player2):
             winflag = "player2"
             break
     
-    system('cls') if name == 'nt' else system('clear')
-    title()
-    display(playboard)
+    format(playboard)
 
     if winflag == None:
         print("That was a Draw !\n")
